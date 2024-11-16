@@ -1,0 +1,65 @@
+MD:
+
+1) gmx pdb2gmx -f receptor.pdb -o receptor.gro
+[Upload ligand.mol2 file to cgenff and extract all files from zip file]
+[Open liand.mol2 file now in text editor and change the name in top to something standard like LIG, open ligand.str and above GROUP line add RESIDUE LIG]
+[run python script: python cgenff_charmm2gmx.py LIG ligand.mol2 ligand.str charmm36-jul2022.ff][Rename all the files generated to ligand with its corresponding extension]
+2) gmx editconf -f ligand.pdb -o ligand.gro
+[Now create complex.gro file from receptor.gro and ligand.gro] [ Change total number of atoms in complex.gro file(at the top) to (number of lines-3)]
+[Update topology file]
+3) gmx editconf -f complex.gro -o newbox.gro -bt dodecahedron -d 1.0
+4) gmx solvate -cp newbox.gro -cs spc216.gro -p topol.top -o solv.gro
+5) gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
+6) gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral
+7) gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
+8) gmx mdrun -deffnm em -v
+[In nvt.mdp, npt.mdp and md.mdp file change default system name to your system name such as Protein_LIG]
+[In npt.mdp file, change Berndesen to c-rescale]
+9) gmx make_ndx -f ligand.gro -o index_ligand.ndx [Select 0 & a H*] [q]
+10) gmx genrestr -f ligand.gro -n index_ligand.ndx -o posre_ligand.itp -fc 1000 1000 1000
+[Update topology file]
+11) gmx make_ndx -f em.gro -o index.ndx [1 | 13] [q]
+12) gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -n index.ndx -o nvt.tpr
+13) gmx mdrun -deffnm nvt -v
+14) gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx -o npt.tpr
+15) gmx mdrun -deffnm npt -v
+16) gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -n index.ndx -o md_0_10.tpr
+17) gmx mdrun -deffnm md_0_10 -v
+
+
+Analysis:
+
+1) gmx trjconv -s md_0_10.tpr -f md_0_10.xtc -o md_0_10_center.xtc -center -pbc mol -ur compact [Bringing to center]
+2) gmx rms -s md_0_10.tpr -f md_0_10_center.xtc -o rmsd.xvg -tu ns -n index.ndx [RMSD]
+3) gmx rmsf -s md_0_10.tpr -f md_0_10_center.xtc -o rmsf.xvg -res [RMSF]
+4) gmx gyrate -s md_0_10.tpr -f md_0_10_center.xtc -n index.ndx -o gyrate.xvg [Radius of gyration]
+5) gmx hbond -s md_0_10.tpr -f md_0_10_center.xtc -num hydrogen.xvg -tu ns -n index.ndx [Number of hydrogen bonds]
+6) gmx sasa -s md_0_10.tpr -f md_0_10_center.xtc -o area.xvg -tu ns -n index.ndx [SASA]
+
+MMPBSA:
+
+Required files- topol.top,index.ndx,ligand.itp,ligand.prm,md_0_10.tpr,md_0_10_center.xtc,charmm force field folder
+
+1) gmx_MMPBSA --create_input gb
+[Open mmpbsa.in file, add system name and set start and end frame as required]
+2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat
+[Visualizations open in a separate window, energy information in final_results.dat file]
+3) gmx_MMPBSA_ana -f _GMXMMPBSA_info [To re-open graphs again]
+
+Free energy Landscape and PCA analysis:
+
+Required files- md_0_10.tpr, md_0_10_center.xtc
+
+1) gmx make_ndx -f md_0_10.tpr [Choose 4 | 13 for Backbone_LIG]
+2) gmx covar -f md_0_10_center.xtc -s md_0_10.tpr -n index.ndx -o eigenval.xvg -v eigenvec.trr -b 0 -e 100 -tu ns [Choose 20 twice, 2 files created- eigenval.xvg anda eigenvec.trr]
+3) gmx anaeig -v eigenvec.trr -f md_0_10_center.xtc -eig eigenval.xvg -s md_0_10.tpr -n index.ndx -first 1 -last 2 -2d PCA_2d.xvg [Choose 20 twice]
+4) gmx sham -f PCA_2d.xvg -ls PCA_sham.xpm -notime
+5) gmx xpm2ps -f PCA_sham.xpm -o PCA_sham.eps -rainbow red [eps files can be converted to image form]
+ [PCA_2d.xvg is used for PCA analysis by plotting it in scatter plot form]
+6) python3 scatter_plot_xvg.py PCA_2d.xvg [gives PCA plot in scatter plot form]
+
+
+
+
+
+
