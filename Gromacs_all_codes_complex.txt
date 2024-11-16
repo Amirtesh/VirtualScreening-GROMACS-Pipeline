@@ -36,15 +36,6 @@ Analysis:
 5) gmx hbond -s md_0_10.tpr -f md_0_10_center.xtc -num hydrogen.xvg -tu ns -n index.ndx [Number of hydrogen bonds]
 6) gmx sasa -s md_0_10.tpr -f md_0_10_center.xtc -o area.xvg -tu ns -n index.ndx [SASA]
 
-MMPBSA:
-
-Required files- topol.top,index.ndx,ligand.itp,ligand.prm,md_0_10.tpr,md_0_10_center.xtc,charmm force field folder
-
-1) gmx_MMPBSA --create_input gb
-[Open mmpbsa.in file, add system name and set start and end frame as required]
-2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat
-[Visualizations open in a separate window, energy information in final_results.dat file]
-3) gmx_MMPBSA_ana -f _GMXMMPBSA_info [To re-open graphs again]
 
 Free energy Landscape and PCA analysis:
 
@@ -58,6 +49,15 @@ Required files- md_0_10.tpr, md_0_10_center.xtc
  [PCA_2d.xvg is used for PCA analysis by plotting it in scatter plot form]
 6) python3 scatter_plot_xvg.py PCA_2d.xvg [gives PCA plot in scatter plot form]
 
+MMPBSA:
+
+Required files- topol.top,index.ndx,ligand.itp,ligand.prm,md_0_10.tpr,md_0_10_center.xtc,charmm force field folder
+
+1) gmx_MMPBSA --create_input gb
+[Open mmpbsa.in file, add system name and set start and end frame as required]
+2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat
+[Visualizations open in a separate window, energy information in final_results.dat file]
+3) gmx_MMPBSA_ana -f _GMXMMPBSA_info [To re-open graphs again]
 
 
 
