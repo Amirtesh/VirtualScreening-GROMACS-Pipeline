@@ -1,0 +1,32 @@
+MD:
+
+1) gmx pdb2gmx -f receptor.pdb -o receptor.gro
+2) gmx editconf -f receptor.gro -o newbox.gro -c -d 1.0 -bt cubic
+3) gmx solvate -cp newbox.gro -cs spc216.gro -o solv.gro -p topol.top
+4) gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
+5) gmx genion -s ions.tpr -o solv_ions.gro -p topol.top
+6) gmx grompp -f minim.mdp -c solv_ions.gro -p topol.top -o em.tpr
+7) gmx mdrun -deffnm em -v
+8) gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+9) gmx mdrun -deffnm nvt -v
+10) gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -p topol.top -o npt.tpr
+11) gmx mdrun -deffnm npt -v
+12) gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md_0_1.tpr
+13) gmx mdrun -deffnm md_0_1 -v
+
+
+Analysis:
+
+1) gmx trjconv -s md_0_1.tpr -f md_0_1.xtc -o md_0_1_center.xtc -pbc mol -center [Bringing to center]
+2) gmx rms -s md_0_1.tpr -f md_0_1_center.xtc -o rmsd.xvg -tu ns [RMSD]
+3) gmx rmsf -s md_0_1.tpr -f md_0_1_center.xtc -o rmsd.xvf -res [RMSF]
+4) gmx gyrate -s md_0_1.tpr -f md_0_1_center.xtc -o gyrate.xvg [Radius of gyration]
+5) gmx hbond -s md_0_1.tpr -f md_0_1_center.xtc -num hydrogen.xvg -tu ns [Number of hydrogen bonds]
+6) gmx sasa -s md_0_1.tpr -f md_0_1_center.xtc -o area.xvg -tu ns [SASA]
+
+PCA:
+
+1) gmx covar -f md_0_1_center.xtc -s md_0_1.tpr -o eigenval.xvg -v eigenvec.trr -b 0 -e 100 -tu ns
+2) gmx anaeig -v eigenvec.trr -f md_0_1_center.xtc -eig eigenval.xvg -s md_0_1.tpr -first 1 -last 2 -2d PCA_2d.xvg
+3) gmx sham -f PCA_2d.xvg -ls PCA_sham.xpm -notime
+4) gmx xpm2ps -f PCA_sham.xpm -o PCA_sham.eps -rainbow red
