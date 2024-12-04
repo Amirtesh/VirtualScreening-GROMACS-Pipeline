@@ -19,7 +19,13 @@ perl Smina_linux.pl
 
 **Gromacs_all_codes_complex.txt**
 
-This file contains all the necessary codes to perform simulation with gromacs, perform analysis such as RMSD, RMSF, SASA, Radius of Gyration, Number of H bonds, Free energy landscape and Principal component analysis. It also contains the commands required to perform MMPBSA analysis with gmx_MMPBSA software installed.
+This file contains all the necessary codes to perform simulation of protein-ligand complex with gromacs, perform analysis such as RMSD, RMSF, SASA, Radius of Gyration, Number of H bonds, Free energy landscape and Principal component analysis. It also contains the commands required to perform MMPBSA analysis with gmx_MMPBSA software installed.
+
+**Gromacs_all_codes_protein.txt**
+
+This file contains all the necessary codes to perform simulation of protein with gromacs, perform analysis such as RMSD, RMSF, SASA, Radius of Gyration, Number of H bonds, Free energy landscape and Principal component analysis.
+
+**scatter_plot_xvg.py**
 
 The scatter_plot_xvg.py program is used to plot the PCA_2d.xvg file obtained after performing PCA in scatter plot form, utilizing seaborn library of python
 
