@@ -4,7 +4,7 @@ MD:
 2) gmx editconf -f receptor.gro -o newbox.gro -c -d 1.0 -bt cubic
 3) gmx solvate -cp newbox.gro -cs spc216.gro -o solv.gro -p topol.top
 4) gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
-5) gmx genion -s ions.tpr -o solv_ions.gro -p topol.top
+5) gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral
 6) gmx grompp -f minim.mdp -c solv_ions.gro -p topol.top -o em.tpr
 7) gmx mdrun -deffnm em -v
 8) gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
