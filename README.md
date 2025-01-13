@@ -1,24 +1,24 @@
-### VirtualScreening-GROMACS-Pipeline
+# VirtualScreening-GROMACS-Pipeline
 
 **Usage of Vina_linux.pl and Smina_linux.pl**
 
 Keep a file name ligand.txt containing the names of all the ligand files for virtual screening purpose and conf.txt file containing grid box coordinates, receptor file name and other parameters required for docking with Vina or Smina (The parameters are similar)
 
-# Virtual screening with Vina- 
+## Virtual screening with Vina- 
 Run the following command in the directory containing the Vina_linx.pl script file, all ligand files and the ligand.txt file and conf.txt. Enter ligand.txt after running this command to start the process of screening
 
 ```
 perl Vina_linux.pl
 ```
 
-# Virtual screening with Smina- 
+## Virtual screening with Smina- 
 Run the following command in the directory containing the Smina_linx.pl script file, all ligand files and the ligand.txt file and conf.txt. Enter ligand.txt after running this command to start the process of screening
 
 ```
 perl Smina_linux.pl
 ```
 
-# Virtual screening with QVina-
+## Virtual screening with QVina-
 Run the following command in the directory containing the QVina_linx.pl script file, all ligand files and the ligand.txt file and conf.txt. Enter ligand.txt after running this command to start the process of screening
 
 ```
