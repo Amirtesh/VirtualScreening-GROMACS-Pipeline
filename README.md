@@ -1,4 +1,4 @@
-## VirtualScreening-GROMACS-Pipeline
+### VirtualScreening-GROMACS-Pipeline
 
 **Usage of Vina_linux.pl and Smina_linux.pl**
 
