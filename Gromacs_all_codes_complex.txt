@@ -53,7 +53,7 @@ MMPBSA:
 
 Required files- topol.top,index.ndx,ligand.itp,ligand.prm,md_0_10.tpr,md_0_10_center.xtc,charmm force field folder
 
-1) gmx_MMPBSA --create_input gb
+1) gmx_MMPBSA --create_input gb OR gmx_MMPBSA --create_input pb
 [Open mmpbsa.in file, add system name and set start and end frame as required]
 2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat
 [Visualizations open in a separate window, energy information in final_results.dat file]
