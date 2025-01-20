@@ -36,6 +36,7 @@ Analysis:
 5) gmx hbond -s md_0_10.tpr -f md_0_10_center.xtc -num hydrogen.xvg -tu ns -n index.ndx [Number of hydrogen bonds]
 6) gmx sasa -s md_0_10.tpr -f md_0_10_center.xtc -o area.xvg -tu ns -n index.ndx [SASA]
 
+[awk '{ if ($1 != "#" && $1 != "@") total += $2; count++ } END { if (count > 0) print total/count }' file.xvg => Getting mean value from the xvg files]
 
 Free energy Landscape and PCA analysis:
 
