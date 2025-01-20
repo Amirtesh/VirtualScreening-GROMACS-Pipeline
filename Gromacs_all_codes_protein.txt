@@ -24,6 +24,8 @@ Analysis:
 5) gmx hbond -s md_0_1.tpr -f md_0_1_center.xtc -num hydrogen.xvg -tu ns [Number of hydrogen bonds]
 6) gmx sasa -s md_0_1.tpr -f md_0_1_center.xtc -o area.xvg -tu ns [SASA]
 
+[awk '{ if ($1 != "#" && $1 != "@") total += $2; count++ } END { if (count > 0) print total/count }' file.xvg => Getting mean value from the xvg files]
+
 PCA:
 
 1) gmx covar -f md_0_1_center.xtc -s md_0_1.tpr -o eigenval.xvg -v eigenvec.trr -b 0 -e 100 -tu ns
