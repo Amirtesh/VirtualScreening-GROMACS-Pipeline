@@ -42,7 +42,7 @@ Free energy Landscape and PCA analysis:
 
 Required files- md_0_10.tpr, md_0_10_center.xtc
 
-1) gmx make_ndx -f md_0_10.tpr [Choose 4 | 13 for Backbone_LIG]
+1) gmx make_ndx -f md_0_10.tpr -o index.ndx [Choose 4 | 13 for Backbone_LIG]
 2) gmx covar -f md_0_10_center.xtc -s md_0_10.tpr -n index.ndx -o eigenval.xvg -v eigenvec.trr -b 0 -e 100 -tu ns [Choose 20 twice, 2 files created- eigenval.xvg anda eigenvec.trr]
 3) gmx anaeig -v eigenvec.trr -f md_0_10_center.xtc -eig eigenval.xvg -s md_0_10.tpr -n index.ndx -first 1 -last 2 -2d PCA_2d.xvg [Choose 20 twice]
 4) gmx sham -f PCA_2d.xvg -ls PCA_sham.xpm -notime
