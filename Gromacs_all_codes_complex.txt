@@ -31,7 +31,7 @@ Analysis:
 
 1) gmx trjconv -s md_0_10.tpr -f md_0_10.xtc -o md_0_10_center.xtc -center -pbc mol -ur compact [Bringing to center]
 2) gmx rms -s md_0_10.tpr -f md_0_10_center.xtc -o rmsd.xvg -tu ns -n index.ndx [RMSD]
-3) gmx rmsf -s md_0_10.tpr -f md_0_10_center.xtc -o rmsf.xvg -res [RMSF]
+3) gmx rmsf -s md_0_10.tpr -f md_0_10_center.xtc -o rmsf.xvg -res -n index.ndx [RMSF]
 4) gmx gyrate -s md_0_10.tpr -f md_0_10_center.xtc -n index.ndx -o gyrate.xvg [Radius of gyration]
 5) gmx hbond -s md_0_10.tpr -f md_0_10_center.xtc -num hydrogen.xvg -tu ns -n index.ndx [Number of hydrogen bonds]
 6) gmx sasa -s md_0_10.tpr -f md_0_10_center.xtc -o area.xvg -tu ns -n index.ndx [SASA]
