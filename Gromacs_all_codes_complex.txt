@@ -56,7 +56,7 @@ Required files- topol.top,index.ndx,ligand.itp,ligand.prm,md_0_10.tpr,md_0_10_ce
 
 1) gmx_MMPBSA --create_input gb OR gmx_MMPBSA --create_input pb
 [Open mmpbsa.in file, add system name and set start and end frame as required]
-2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat
+2) gmx_MMPBSA -O -i mmpbsa.in -cs md_0_10.tpr -ct md_0_10_center.xtc -ci index.ndx -cg 1 13 -cp topol.top -o final_results.dat -eo final_results.csv
 [Visualizations open in a separate window, energy information in final_results.dat file]
 3) gmx_MMPBSA_ana -f _GMXMMPBSA_info [To re-open graphs again]
 
