@@ -35,6 +35,7 @@ Analysis:
 4) gmx gyrate -s md_0_10.tpr -f md_0_10_center.xtc -n index.ndx -o gyrate.xvg [Radius of gyration]
 5) gmx hbond -s md_0_10.tpr -f md_0_10_center.xtc -num hydrogen.xvg -tu ns -n index.ndx [Number of hydrogen bonds]
 6) gmx sasa -s md_0_10.tpr -f md_0_10_center.xtc -o area.xvg -tu ns -n index.ndx [SASA]
+7) gmx mindist -f md_0_10_center.xtc -s md_0_10.tpr -n index.ndx -od mindist.xvg [Mininum distance]
 
 [awk '{ if ($1 != "#" && $1 != "@") total += $2; count++ } END { if (count > 0) print total/count }' file.xvg => Getting mean value from the xvg files]
 
