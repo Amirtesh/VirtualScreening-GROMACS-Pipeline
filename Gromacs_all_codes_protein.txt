@@ -19,7 +19,7 @@ Extending Simulation:
 1) In md.mdp file, change the time in nsteps properly and save it as md2.mdp
 2) gmx grompp -f md2.mdp -c md_0_1.gro -t md_0_1.cpt -p topol.top -o md_extend.tpr -n index.ndx
 3) gmx mdrun -deffnm md_extend -v
-4) gxm trjcat -f md_0_1.xtc md_extend.xtc -o final.xtc
+4) gmx trjcat -f md_0_1.xtc md_extend.xtc -o final.xtc
 
 
 Analysis:
