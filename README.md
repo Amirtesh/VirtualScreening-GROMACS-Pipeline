@@ -43,3 +43,23 @@ Usage:
 ```python
 python3 scatter_plot_xvg.py PCA_2d.xvg
 ```
+
+## plotXVG.py
+
+Alternative to xmgrace to plot output xvg files from gromacs. Supports single file and mulitple files, with pressing of 's' to save image in 600dpi (ignore the save pop up after clicking 's'). Legends can be changed manually also after opening.
+
+Usage:
+
+```python
+python3 plotXVG.py file1.xvg file2.xvg
+```
+
+## plot3DFEL.py
+
+Alternative to eps file output from PCA analysis in gromacs. Works with the xpm file (PCA_sham.xpm) generated. Plots both the regular 2D plot and a 3D plot side by side and 3D plot can be rotated without affecting the 2D plot
+
+Usage:
+
+```python
+python3 plot3DFEL.py PCA_sham.xpm
+```
