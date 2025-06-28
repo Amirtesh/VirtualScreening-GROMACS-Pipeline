@@ -34,6 +34,16 @@ This file contains all the necessary codes to perform simulation of protein-liga
 
 This file contains all the necessary codes to perform simulation of protein with gromacs, perform analysis such as RMSD, RMSF, SASA, Radius of Gyration, Number of H bonds, Free energy landscape and Principal component analysis.
 
+## GromacsGUI.py
+
+A PyQT5 based gui for analysis of gromacs trajectories after simulation. Allows centering of trajectory, running of rmsd, rmsf, gyration, sasa, HBond, Mindist, PCA and FEL analysis. The plot multiple files window can be used to open multiple xvg files and plot together, with options to save images. The 3d FEL window can be used to plot Gibbs Free Energy Landscape plots in both 2D and 3D. Inidividual scripts are also available without the use of a GUI.
+
+Usage:
+
+```python
+python3 GromacsGUI.py
+```
+
 ## scatter_plot_xvg.py
 
 The scatter_plot_xvg.py program is used to plot the PCA_2d.xvg file obtained after performing PCA in scatter plot form, utilizing seaborn library of python
