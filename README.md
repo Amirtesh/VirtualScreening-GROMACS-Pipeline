@@ -73,3 +73,13 @@ Usage:
 ```python
 python3 plot3DFEL.py PCA_sham.xpm
 ```
+
+## convertDPI.py
+
+Python script to convert all images (png format) within directory to a specific dpi
+
+Usage:
+
+```python
+python3 convertDPI.py 600 #converts every png file in directory to 600 dpi
+```
